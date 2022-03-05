@@ -4,13 +4,13 @@ import type { GetStaticProps } from "next";
 import getPopularMovies from "./api/getPopularMovies";
 import Link from "next/link";
 import Image from "next/image";
-import { Pagination } from "../components/Pagination";
 
 interface resultsInterface {
   id: number;
   title: string;
   overview: string;
   release_date: string;
+  formattedDate: string;
   backdrop_path: string | null;
   poster_path: string | null;
   genre_ids: number[];
@@ -26,7 +26,6 @@ type HomeProps = {
 export default function Home({ data }: HomeProps) {
   console.log(data);
 
-  const regex = /(\d+)-(\d+)-(\d+)/;
   const tags = [
     "ação",
     "aventura",
@@ -81,42 +80,37 @@ export default function Home({ data }: HomeProps) {
         </section>
 
         <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-8 px-2 bg-brand-neutral-000 text-brand-neutral-900 font-bold py-8">
-          {data.results.map(
-            ({
-              id,
-              title,
-              release_date,
-              backdrop_path,
-              poster_path,
-              genre_ids,
-            }) => (
-              <Link key={id} href="#" passHref>
-                <a className="flex flex-col gap-2">
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-                    alt={title}
-                    width={176}
-                    height={264}
-                    objectFit="cover"
-                    className="rounded"
-                  />
+          {!!data &&
+            data.results.map(
+              ({
+                id,
+                title,
+                formattedDate,
+                backdrop_path,
+                poster_path,
+                genre_ids,
+              }) => (
+                <Link key={id} href="#" passHref>
+                  <a className="flex flex-col gap-2">
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+                      alt={title}
+                      width={176}
+                      height={264}
+                      objectFit="cover"
+                      className="rounded"
+                    />
 
-                  <div>
-                    <p className="text-sm">{title}</p>
-                    <small className="text-xs text-brand-neutral-500 uppercase">
-                      {new Date(release_date)
-                        .toLocaleDateString("pt-BR", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })
-                        .replace(/ de |\./g, " ")}
-                    </small>
-                  </div>
-                </a>
-              </Link>
-            )
-          )}
+                    <div>
+                      <p className="text-sm">{title}</p>
+                      <small className="text-xs text-brand-neutral-500 uppercase">
+                        {formattedDate}
+                      </small>
+                    </div>
+                  </a>
+                </Link>
+              )
+            )}
         </section>
       </main>
     </>
@@ -124,10 +118,27 @@ export default function Home({ data }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await getPopularMovies();
+  const data = await getPopularMovies();
+
+  const newData = {
+    page: data.page,
+    results: data.results.map((item) => ({
+      ...item,
+      formattedDate: new Date(item.release_date)
+        .toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+        .replace(/ de |\./g, " "),
+    })),
+  };
+
+  // release_date = "2021-12-14"
+  // formattedDate = "14 DEZ 2021"
 
   return {
-    props: { data },
+    props: { data: newData },
     revalidate: 60 * 60 * 24, // 24 hours
   };
 };

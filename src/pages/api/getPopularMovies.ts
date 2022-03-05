@@ -1,7 +1,22 @@
 import { api } from "../../services/api";
 
-export default async () => {
-  const data = await (await api.get("/movie/popular")).data;
+interface resultsInterface {
+  id: number;
+  title: string;
+  overview: string;
+  release_date: string;
+  backdrop_path: string | null;
+  poster_path: string | null;
+  genre_ids: number[];
+}
 
-  return { data };
+type DataType = {
+  page: number;
+  results: Array<resultsInterface>;
+};
+
+export default async () => {
+  const responseData = await (await api.get<DataType>("/movie/popular")).data;
+
+  return responseData;
 };

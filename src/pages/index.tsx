@@ -34,7 +34,9 @@ export default function Home({ data }: HomeProps) {
       </Head>
 
       <main className="flex-1 min-h-screen flex flex-col gap-2 items-center justify-center">
-        <h1 className="text-5xl font-bold">Hello, World!</h1>
+        <h1 className="text-brand-neutral-900 text-5xl font-bold">
+          Hello, World!
+        </h1>
         {!!data && data.results[0].title}
       </main>
     </>

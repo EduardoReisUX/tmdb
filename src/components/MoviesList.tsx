@@ -28,8 +28,8 @@ export function MoviesList({ movies }: MoviesListProps) {
               poster_path,
               genre_ids,
             }) => (
-              <Link key={id} href="#" passHref>
-                <a className="flex flex-col gap-2">
+              <Link key={id} href={`movie/${id}`} passHref>
+                <a className="flex flex-col gap-2 duration-100 ease-in-out hover:brightness-75">
                   <Image
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}
                     alt={title}

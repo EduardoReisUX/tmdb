@@ -27,6 +27,19 @@ module.exports = {
         "4xl": ["2rem", "2.5rem"], // 32px
         "5xl": ["3rem", "1"], // 48px
       },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: 0, bottom: 0 },
+          to: { opacity: 1, bottom: "2rem" },
+        },
+        fadeOut: {
+          from: { opacity: 1, bottom: "2rem" },
+          to: { opacity: 0, bottom: 0 },
+        },
+      },
+      animation: {
+        fadeInOut: "fadeIn .300s, fadeOut .300s 4s forwards",
+      },
     },
   },
   plugins: [],

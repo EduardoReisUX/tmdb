@@ -6,6 +6,8 @@ import getPopularMovies from "./api/getPopularMovies";
 import { Hero } from "../components/Hero";
 import { MoviesList } from "../components/MoviesList";
 import { Pagination } from "../components/Pagination";
+import { LoadingToast } from "../components/LoadingToast";
+import { useCallback, useState } from "react";
 
 interface resultsInterface {
   id: number;
@@ -26,6 +28,16 @@ type HomeProps = {
 };
 
 export default function Home({ data }: HomeProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const showLoadingToast = useCallback(() => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4500);
+  }, [isLoading]);
+
   return (
     <>
       <Head>
@@ -39,9 +51,11 @@ export default function Home({ data }: HomeProps) {
 
       <main className="min-h-screen bg-brand-primary-dark">
         <Hero />
-        <MoviesList movies={data.results} />
+        <MoviesList movies={data.results} handleOnClick={showLoadingToast} />
         <Pagination />
       </main>
+
+      <LoadingToast isLoading={isLoading} />
     </>
   );
 }

@@ -10,13 +10,15 @@ interface resultsInterface {
   genre_ids: number[];
 }
 
-type DataType = {
+type PopularMoviesType = {
   page: number;
   results: Array<resultsInterface>;
 };
 
 export default async () => {
-  const responseData = await (await api.get<DataType>("/movie/popular")).data;
+  const popularMoviesData = await (
+    await api.get<PopularMoviesType>("/movie/popular")
+  ).data;
 
-  return responseData;
+  return popularMoviesData;
 };

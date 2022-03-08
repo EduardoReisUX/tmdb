@@ -1,18 +1,20 @@
 import { api } from "../../services/api";
 
-type MovieType = {
+export type MovieType = {
   title: string;
   overview: string;
   vote_average: number;
   run_time: number;
   release_date: string;
+  backdrop_path: string | null;
+  poster_path: string | null;
   genres: Array<{
     id: number;
     name: string;
   }>;
 };
 
-type CastsType = {
+export type CastsType = {
   id: number;
   cast: Array<{
     id: number;
@@ -20,9 +22,14 @@ type CastsType = {
     character: string;
     profile_path: string;
   }>;
+  crew: Array<{
+    id: number;
+    name: string;
+    job: string;
+  }>;
 };
 
-interface resultsInterface {
+export interface resultsInterface {
   id: number;
   title: string;
   overview: string;
@@ -32,7 +39,7 @@ interface resultsInterface {
   genre_ids: number[];
 }
 
-type RecommendedMoviesType = {
+export type RecommendedMoviesType = {
   page: number;
   results: Array<resultsInterface>;
 };
@@ -43,7 +50,7 @@ export default async (movieId: number) => {
   const castData = (await api.get<CastsType>(`/movie/${movieId}/credits`)).data;
 
   const recommendedMoviesData = (
-    await api.get<RecommendedMoviesType>(`/movie/${movieId}/credits`)
+    await api.get<RecommendedMoviesType>(`/movie/${movieId}/recommendations`)
   ).data;
 
   const data = { movieData, castData, recommendedMoviesData };

@@ -1,6 +1,13 @@
-import { Tags } from "./Tags";
+import { GenresTags } from "./GenresTag";
 
-export function Hero() {
+type HeroProps = {
+  genres: Array<{
+    id: number;
+    name: string;
+  }>;
+};
+
+export function Hero({ genres }: HeroProps) {
   return (
     <>
       <section className="flex flex-col gap-9 max-w-screen-xl mx-auto text-brand-neutral-000 font-bold px-2 pt-10 pb-12">
@@ -10,7 +17,7 @@ export function Hero() {
           Explore já.
         </h1>
 
-        <Tags />
+        <GenresTags genres={genres} />
       </section>
     </>
   );

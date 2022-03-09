@@ -15,10 +15,21 @@ type PopularMoviesType = {
   results: Array<resultsInterface>;
 };
 
+type GenresListType = {
+  genres: Array<{
+    id: number;
+    name: string;
+  }>;
+};
+
 export default async () => {
   const popularMoviesData = await (
     await api.get<PopularMoviesType>("/movie/popular")
   ).data;
 
-  return popularMoviesData;
+  const genresListData = await (
+    await api.get<GenresListType>("/genre/movie/list")
+  ).data;
+
+  return { popularMoviesData, genresListData };
 };

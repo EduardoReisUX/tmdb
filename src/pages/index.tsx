@@ -21,13 +21,14 @@ interface resultsInterface {
 }
 
 type HomeProps = {
-  data: {
+  popularMovies: {
     page: number;
     results: Array<resultsInterface>;
   };
+  genresList: Array<{ id: number; name: string }>;
 };
 
-export default function Home({ data }: HomeProps) {
+export default function Home({ popularMovies, genresList }: HomeProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const showLoadingToast = useCallback(() => {
@@ -50,8 +51,11 @@ export default function Home({ data }: HomeProps) {
       </Head>
 
       <main className="min-h-screen bg-brand-primary-dark">
-        <Hero />
-        <MoviesList movies={data.results} handleOnClick={showLoadingToast} />
+        <Hero genres={genresList} />
+        <MoviesList
+          movies={popularMovies.results}
+          handleOnClick={showLoadingToast}
+        />
         <Pagination />
       </main>
 
@@ -63,9 +67,9 @@ export default function Home({ data }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getPopularMovies();
 
-  const newData = {
-    page: data.page,
-    results: data.results.map((item) => ({
+  const popularMovies = {
+    page: data.popularMoviesData.page,
+    results: data.popularMoviesData.results.map((item) => ({
       ...item,
       formattedDate: new Date(item.release_date)
         .toLocaleDateString("pt-BR", {
@@ -77,11 +81,13 @@ export const getStaticProps: GetStaticProps = async () => {
     })),
   };
 
-  // release_date = "2021-12-14"
-  // formattedDate = "14 DEZ 2021"
+  const genresList = data.genresListData.genres;
 
   return {
-    props: { data: newData },
+    props: {
+      popularMovies,
+      genresList,
+    },
     revalidate: 60 * 60 * 24, // 24 hours
   };
 };

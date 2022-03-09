@@ -1,34 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+  <img src="github/logo.svg" alt="logo" width="300px"></img>
+</h1>
 
-## Getting Started
+<p align="center">
+  <a href="#ℹ-descrição">Descrição</a> •
+  <a href="#ℹ-testes">Testes</a> •
+  <a href="#-tecnologias">Tecnologias</a> •
+  <a href="#-pré-requisitos">Pré-requisitos</a> •
+  <a href="#-como-usar">Como usar</a> <!-- •
+  <a href="#-demonstração">Demonstração</a> -->
+</p>
 
-First, run the development server:
+<p align="center">
+  <img src="github/desktop.png" alt="Projeto no desktop" width="100%"></img>
+</p>
+
+## ℹ Descrição
+
+Projeto desenvolvido como [desafio da Promobit para função de Dev front-end](https://github.com/Promobit/front-end-challenge). 👨‍🚀🚀
+
+O desafio consistia em desenvolver o layout conforme o
+[design do Figma](https://www.figma.com/file/rM7WPqhLY9ObnGzSCeWLxB/Teste-Front-End) usando a API de filmes gratuita
+[themoviedb](https://developers.themoviedb.org/3/getting-started/introduction),
+em sua versão 3, consultando os endpoint
+[GET /movie/popular](https://developers.themoviedb.org/3/movies/get-popular-movies)
+e
+[GET /movie/{movie_id}](https://developers.themoviedb.org/3/movies/get-movie-details)
+para, respectivamente, fazer a listagem de filmes populares e obter dados específicos de um filme.
+
+## 📝 Testes
+
+🚧 **_Em construção_**
+
+<!-- - MoviesList component
+  - receiving mocked MoviesListProps
+    - [x] should render a list of movies
+    - [x] should have a link to its specific movie -->
+
+## ⚒ Tecnologias
+
+- [**React**](https://pt-br.reactjs.org)
+- [**Typescript**](https://www.typescriptlang.org)
+- [**Next.js**](https://nextjs.org/)
+- [**TailwindCSS**](https://tailwindcss.com/)
+- [**Jest**](https://jestjs.io/pt-BR/)
+- [**React Testing Library**](https://testing-library.com/)
+- [**React-Icons**](https://react-icons.github.io/react-icons/)
+- [**Axios**](https://axios-http.com/)
+- **_Playwright ou Cypress_\***
+- **_React-Query_\***
+
+<small>\*Essas tecnologias serão implementadas futuramente.</small>
+
+## ⚙ Pré-requisitos
+
+- [Git](https://git-scm.com)
+- [Yarn](https://yarnpkg.com)
+- Editor de código.
+
+## 🖥 Como usar
+
+**Clone o projeto e acesse a pasta**
 
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone https://github.com/EduardoReisUX/tmdb.git && cd tmdb
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Siga os passos seguintes**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+# Instale as dependências
+$ yarn
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Verifique os testes
+$ yarn test
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Inicie a aplicação na sua máquina
+$ yarn dev
+```
 
-## Learn More
+<!-- ## 👀 Demonstração
 
-To learn more about Next.js, take a look at the following resources:
+<p align="center">
+<img src="github/demo.gif" alt="Demonstração do projeto"></img>
+</p> -->
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="center">Feito com 💜 por <a href="https://github.com/EduardoReisUX">Eduardo dos Reis</a></p>

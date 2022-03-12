@@ -48,9 +48,9 @@ export function GenresTags({ genres }: GenresTagsProps) {
   };
 
   return (
-    <section className="flex flex-col gap-2">
-      <h3 className="uppercase text-sm">Filtre por:</h3>
-      <div className="flex flex-wrap gap-3">
+    <section className="flex flex-col gap-2 lg:gap-4">
+      <h3 className="uppercase text-sm lg:text-center">Filtre por:</h3>
+      <div className="flex flex-wrap gap-3 lg:justify-center">
         {!!selectedGenresList &&
           selectedGenresList.map(({ id, name, isSelected }) => (
             <button

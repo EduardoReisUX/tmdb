@@ -5,16 +5,20 @@ type MovieResumeProps = { movie: MovieType; casts: CastsType };
 
 export function MovieResume({ movie, casts }: MovieResumeProps) {
   return (
-    <section className="flex flex-col gap-9 max-w-screen-xl mx-auto text-brand-neutral-000 px-2 pt-9 pb-[72px]">
-      <div className="mx-auto">
+    <section
+      className="flex flex-col gap-9 max-w-screen-lg mx-auto text-brand-neutral-000 px-2 pt-9 pb-[72px]
+      lg:grid lg:grid-flow-col lg:gap-8 lg:pb-14
+    "
+    >
+      <div className="mx-auto w-[186px] h-[279px] lg:w-[383px] lg:h-[574px] lg:relative">
         <Image
           src={`https://image.tmdb.org/t/p/original/${
             movie.poster_path || movie.backdrop_path
           }`}
-          width={186}
-          height={279}
+          width={383}
+          height={574}
           alt={movie.title}
-          className="rounded-lg"
+          className="rounded-lg lg:absolute lg:-top-8"
         />
       </div>
 
@@ -24,16 +28,24 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
             {movie.title} ({movie.release_date.slice(0, 4)})
           </h3>
 
-          <div className="text-lg">
-            <p>16 anos</p>
-            <p>11/02/2016 (BR)</p>
-            <div className="flex gap-4">
-              {movie.genres.map(({ id, name }) => (
-                <p key={id}>{name}</p>
-              ))}
-            </div>
-            <p>1h 47m</p>
-          </div>
+          <ul className="text-lg lg:flex lg:gap-[18px] lg:list-disc lg:list-inside">
+            <li className="lg:list-none">16 anos</li>
+            <li>11/02/2016 (BR)</li>
+            {movie.genres.map(({ id, name }, index) => (
+              <li
+                className={`${index === 0 ? "lg:list-disc" : "lg:list-none"} `}
+                key={id}
+              >
+                {name}
+              </li>
+            ))}
+            {!!movie.runtime && (
+              <li>
+                {Math.floor(movie.runtime / 60)}h
+                {Math.floor(movie.runtime % 60)}m
+              </li>
+            )}
+          </ul>
         </div>
 
         <div className="flex items-center gap-3">

@@ -18,7 +18,7 @@ type MoviesListProps = {
 export function MoviesList({ movies, handleOnClick }: MoviesListProps) {
   return (
     <section className="bg-brand-neutral-000 text-brand-neutral-900 font-bold py-8">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8 max-w-screen-xl mx-auto px-2 ">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8 max-w-screen-lg mx-auto px-2 ">
         {!!movies &&
           movies.map(
             ({

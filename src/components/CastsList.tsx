@@ -12,9 +12,9 @@ type CastsListProps = {
 export function CastsList({ cast }: CastsListProps) {
   return (
     <section className="bg-brand-neutral-000 text-brand-neutral-900 py-12 px-2">
-      <div className="max-w-screen-xl mx-auto flex flex-col gap-2">
+      <div className="max-w-screen-lg mx-auto flex flex-col gap-2">
         <h3 className="text-3xl font-bold">Elenco original</h3>
-        <div className="grid grid-flow-col gap-4 overflow-x-scroll snap-x snap-mandatory pb-6">
+        <div className="grid grid-flow-col gap-4 overflow-x-auto snap-x snap-mandatory pb-6">
           {cast.slice(0, 10).map(({ id, profile_path, name, character }) => (
             <a
               key={id}

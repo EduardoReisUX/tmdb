@@ -1,5 +1,3 @@
-import { api } from "../../services/api";
-
 interface resultsInterface {
   id: number;
   title: string;
@@ -23,13 +21,19 @@ type GenresListType = {
 };
 
 export default async () => {
-  const popularMoviesData = await (
-    await api.get<PopularMoviesType>("/movie/popular")
-  ).data;
+  const BASE_URL = process.env.BASE_URL;
+  const FETCH_CONFIG = process.env.FETCH_CONFIG;
 
-  const genresListData = await (
-    await api.get<GenresListType>("/genre/movie/list")
-  ).data;
+  const popularMovieResponse = await fetch(
+    `${BASE_URL}/movie/popular${FETCH_CONFIG}`
+  );
+  const popularMoviesData: PopularMoviesType =
+    await popularMovieResponse.json();
+
+  const genresListResponse = await fetch(
+    `${BASE_URL}/genre/movie/list${FETCH_CONFIG}`
+  );
+  const genresListData: GenresListType = await genresListResponse.json();
 
   return { popularMoviesData, genresListData };
 };

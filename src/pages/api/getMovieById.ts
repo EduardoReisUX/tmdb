@@ -1,5 +1,3 @@
-import { api } from "../../services/api";
-
 export type MovieType = {
   title: string;
   overview: string;
@@ -45,15 +43,24 @@ export type RecommendedMoviesType = {
 };
 
 export default async (movieId: number) => {
-  const movieData = (await api.get<MovieType>(`/movie/${movieId}`)).data;
+  const BASE_URL = process.env.BASE_URL;
+  const FETCH_CONFIG = process.env.FETCH_CONFIG;
 
-  const castData = (await api.get<CastsType>(`/movie/${movieId}/credits`)).data;
+  const movieResponse = await fetch(
+    `${BASE_URL}/movie/${movieId}${FETCH_CONFIG}`
+  );
+  const movieData: MovieType = await movieResponse.json();
 
-  const recommendedMoviesData = (
-    await api.get<RecommendedMoviesType>(`/movie/${movieId}/recommendations`)
-  ).data;
+  const castResponse = await fetch(
+    `${BASE_URL}/movie/${movieId}/credits${FETCH_CONFIG}`
+  );
+  const castData: CastsType = await castResponse.json();
 
-  const data = { movieData, castData, recommendedMoviesData };
+  const recommendedMoviesResponse = await fetch(
+    `${BASE_URL}/movie/${movieId}/recommendations${FETCH_CONFIG}`
+  );
+  const recommendedMoviesData: RecommendedMoviesType =
+    await recommendedMoviesResponse.json();
 
-  return data;
+  return { movieData, castData, recommendedMoviesData };
 };

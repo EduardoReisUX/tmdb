@@ -10,6 +10,15 @@ export type MovieType = {
     id: number;
     name: string;
   }>;
+  release_dates: {
+    results: Array<{
+      iso_3166_1: string;
+      release_dates: Array<{
+        certification: string;
+        release_date: string;
+      }>;
+    }>;
+  };
 };
 
 export type CastsType = {
@@ -47,9 +56,10 @@ export default async (movieId: number) => {
   const FETCH_CONFIG = process.env.FETCH_CONFIG;
 
   const movieResponse = await fetch(
-    `${BASE_URL}/movie/${movieId}${FETCH_CONFIG}`
+    `${BASE_URL}/movie/${movieId}${FETCH_CONFIG}&append_to_response=release_dates`
   );
   const movieData: MovieType = await movieResponse.json();
+  console.log(JSON.stringify(movieData, null, 2));
 
   const castResponse = await fetch(
     `${BASE_URL}/movie/${movieId}/credits${FETCH_CONFIG}`

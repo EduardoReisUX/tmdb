@@ -1,7 +1,25 @@
 import Image from "next/image";
-import { CastsType, MovieType } from "../pages/api/getMovieById";
+import { CastsType } from "../pages/api/getMovieById";
 
-type MovieResumeProps = { movie: MovieType; casts: CastsType };
+interface Movie {
+  formattedDate: string;
+  duration: string;
+  vote_average_formatted: number;
+  title: string;
+  certification: string | undefined;
+  overview: string;
+  vote_average: number;
+  runtime: number;
+  release_date: string;
+  backdrop_path: string | null;
+  poster_path: string | null;
+  genres: Array<{
+    id: number;
+    name: string;
+  }>;
+}
+
+type MovieResumeProps = { movie: Movie; casts: CastsType };
 
 export function MovieResume({ movie, casts }: MovieResumeProps) {
   return (
@@ -29,8 +47,10 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
           </h3>
 
           <ul className="text-lg lg:flex lg:gap-[18px] lg:list-disc lg:list-inside">
-            <li className="lg:list-none">16 anos</li>
-            <li>11/02/2016 (BR)</li>
+            <li className="lg:list-none">
+              {movie.certification !== "L" && `${movie.certification} anos`}
+            </li>
+            <li>{movie.formattedDate} (BR)</li>
             {movie.genres.map(({ id, name }, index) => (
               <li
                 className={`${index === 0 ? "lg:list-disc" : "lg:list-none"} `}
@@ -39,18 +59,13 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
                 {name}
               </li>
             ))}
-            {!!movie.runtime && (
-              <li>
-                {Math.floor(movie.runtime / 60)}h
-                {Math.floor(movie.runtime % 60)}m
-              </li>
-            )}
+            <li>{movie.duration}</li>
           </ul>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="w-16 h-16 flex justify-center items-center rounded-full bg-[rgba(255,255,255,0.1)] border-4 border-[#14FF00] text-[#14FF00] font-bold">
-            76%
+            {movie.vote_average_formatted}%
           </div>
           <p>
             Avaliação dos <br />

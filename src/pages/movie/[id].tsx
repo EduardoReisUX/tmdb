@@ -21,9 +21,27 @@ interface resultsInterface {
   genre_ids: number[];
 }
 
+interface MovieTypeFormatted {
+  formattedDate: string;
+  duration: string;
+  vote_average_formatted: number;
+  title: string;
+  certification: string | undefined;
+  overview: string;
+  vote_average: number;
+  runtime: number;
+  release_date: string;
+  backdrop_path: string | null;
+  poster_path: string | null;
+  genres: Array<{
+    id: number;
+    name: string;
+  }>;
+}
+
 type MovieByIdProps = {
   data: {
-    movieData: MovieType;
+    movieData: MovieTypeFormatted;
     castData: CastsType;
     recommendedMoviesData: { page: number; results: Array<resultsInterface> };
   };
@@ -90,10 +108,29 @@ export const getServerSideProps: GetServerSideProps = async ({
     })),
   };
 
+  const movieNewData = {
+    ...data.movieData,
+    formattedDate: new Date(data.movieData.release_date).toLocaleDateString(
+      "pt-BR",
+      {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }
+    ),
+    duration: `${Math.floor(data.movieData.runtime / 60)}h${Math.floor(
+      data.movieData.runtime % 60
+    )}m`,
+    vote_average_formatted: data.movieData.vote_average * 10,
+    certification: data.movieData.release_dates.results.find(
+      ({ iso_3166_1 }) => iso_3166_1 === "BR"
+    )?.release_dates[0].certification,
+  };
+
   return {
     props: {
       data: {
-        movieData: data.movieData,
+        movieData: movieNewData,
         castData: data.castData,
         recommendedMoviesData: recommendedMoviesnewData,
       },

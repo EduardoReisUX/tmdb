@@ -26,7 +26,7 @@ export function RecommendedMoviesList({
       <div className="max-w-screen-lg mx-auto flex flex-col gap-2">
         <h3 className="text-3xl font-bold">Recomendações</h3>
 
-        <div className="grid grid-flow-col gap-4 w-fit max-w-screen-lg overflow-x-auto snap-x snap-mandatory pb-6">
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6">
           {data.results.map(
             ({ id, poster_path, backdrop_path, title, formattedDate }) => (
               <Link key={id} href={`${id}`} passHref>

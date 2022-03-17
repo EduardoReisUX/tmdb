@@ -7,6 +7,6 @@ module.exports = {
   transformIgnorePatterns: ["/node_modules/"],
   testEnvironment: "jsdom",
   moduleNameMapper: {
-    "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i": `<rootDir>/__mocks__/fileMock.js`,
+    "\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$": `<rootDir>/__mocks__/fileMock.js`,
   },
 };

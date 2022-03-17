@@ -39,6 +39,10 @@ describe("Home page", () => {
     });
   });
 
+  describe("when user clicks a movie", () => {
+    it.todo("should render a loading toast");
+  });
+
   describe("getStaticProps", () => {
     it("should return popularMovies with formatted date, genresList and revalidade of 24hr", async () => {
       const getPopularMoviesMocked = mocked(getPopularMovies);

@@ -1,14 +1,14 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+
 import { useState, useCallback } from "react";
+
 import { CastsList } from "../../components/CastsList";
 import { LoadingToast } from "../../components/LoadingToast";
 import { MovieResume } from "../../components/MovieResume";
 import { RecommendedMoviesList } from "../../components/RecommendedMoviesList";
 
-import getMovieById, { CastsType, MovieType } from "../api/getMovieById";
+import getMovieById, { CastsType } from "../api/getMovieById";
 
 interface resultsInterface {
   id: number;
@@ -64,10 +64,7 @@ export default function MovieById({ data }: MovieByIdProps) {
     <>
       <Head>
         <title>TMDB | {movieData.title}</title>
-        <meta
-          name="description"
-          content="Lista de filmes e séries do The Movie DataBase"
-        />
+        <meta name="description" content={`Tudo sobre ${movieData.title}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

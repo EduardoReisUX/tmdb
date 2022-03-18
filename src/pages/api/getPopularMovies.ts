@@ -1,3 +1,5 @@
+import { NextRequest, NextResponse } from "next/server";
+
 interface resultsInterface {
   id: number;
   title: string;
@@ -10,6 +12,8 @@ interface resultsInterface {
 
 type PopularMoviesType = {
   page: number;
+  total_pages: number;
+  total_results: number;
   results: Array<resultsInterface>;
 };
 
@@ -20,12 +24,12 @@ type GenresListType = {
   }>;
 };
 
-export default async () => {
+export default async (page = 1) => {
   const BASE_URL = process.env.BASE_URL;
   const FETCH_CONFIG = process.env.FETCH_CONFIG;
 
   const popularMovieResponse = await fetch(
-    `${BASE_URL}/movie/popular${FETCH_CONFIG}`
+    `${BASE_URL}/movie/popular${FETCH_CONFIG}&page=${page}`
   );
   const popularMoviesData: PopularMoviesType =
     await popularMovieResponse.json();

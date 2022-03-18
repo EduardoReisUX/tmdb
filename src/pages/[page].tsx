@@ -1,5 +1,9 @@
 import Head from "next/head";
-import type { GetStaticProps } from "next";
+import type {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetStaticProps,
+} from "next";
 
 import getPopularMovies from "./api/getPopularMovies";
 
@@ -29,7 +33,10 @@ type HomeProps = {
   genresList: Array<{ id: number; name: string }>;
 };
 
-export default function Home({ popularMovies, genresList }: HomeProps) {
+export default function PopularMoviesPage({
+  popularMovies,
+  genresList,
+}: HomeProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const showLoadingToast = useCallback(() => {
@@ -68,8 +75,12 @@ export default function Home({ popularMovies, genresList }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const data = await getPopularMovies();
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+}: GetServerSidePropsContext) => {
+  const { page } = query;
+
+  const data = await getPopularMovies(Number(page));
 
   const popularMovies = {
     page: data.popularMoviesData.page,
@@ -93,6 +104,5 @@ export const getStaticProps: GetStaticProps = async () => {
       popularMovies,
       genresList,
     },
-    revalidate: 60 * 60 * 24, // 24 hours
   };
 };

@@ -1,9 +1,5 @@
 import Head from "next/head";
-import type {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetStaticProps,
-} from "next";
+import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 import getPopularMovies from "./api/getPopularMovies";
 

@@ -1,5 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
-
 interface resultsInterface {
   id: number;
   title: string;

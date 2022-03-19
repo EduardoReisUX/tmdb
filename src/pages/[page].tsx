@@ -1,5 +1,5 @@
 import Head from "next/head";
-import type { GetServerSideProps, GetServerSidePropsContext } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 
 import getPopularMovies from "./api/getPopularMovies";
 
@@ -71,10 +71,23 @@ export default function PopularMoviesPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-}: GetServerSidePropsContext) => {
-  const { page } = query;
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      { params: { page: "1" } },
+      { params: { page: "2" } },
+      { params: { page: "3" } },
+      { params: { page: "4" } },
+      { params: { page: "5" } },
+      { params: { page: "6" } },
+    ],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  //@ts-ignore
+  const { page } = params;
 
   const data = await getPopularMovies(Number(page));
 
@@ -100,5 +113,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       popularMovies,
       genresList,
     },
+    revalidate: 60 * 60 * 24,
   };
 };

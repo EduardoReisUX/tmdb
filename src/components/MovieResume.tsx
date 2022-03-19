@@ -22,11 +22,13 @@ interface Movie {
 type MovieResumeProps = { movie: Movie; casts: CastsType };
 
 export function MovieResume({ movie, casts }: MovieResumeProps) {
+  const genres = movie.genres.map(({ name }) => name);
+
   return (
     <section
       className="flex flex-col gap-9 max-w-screen-lg mx-auto text-brand-neutral-000 px-2 pt-9 pb-[72px]
-      lg:grid lg:grid-flow-col lg:gap-8 lg:pb-14
-    "
+        lg:grid lg:grid-flow-col lg:gap-8 lg:pb-14
+      "
     >
       <div className="mx-auto w-[186px] h-[279px] lg:w-[383px] lg:h-[574px] lg:relative">
         <Image
@@ -42,25 +44,24 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
 
       <div className="flex flex-col gap-8">
         <div>
-          <h3 className="text-4xl font-bold">
-            {movie.title} ({movie.release_date.slice(0, 4)})
-          </h3>
+          <h3 className="text-4xl font-bold">{movie.title}</h3>
 
-          <ul className="text-lg lg:flex lg:gap-[18px] lg:list-disc lg:list-inside">
-            <li className="lg:list-none">
-              {movie.certification !== "L" && `${movie.certification} anos`}
-            </li>
-            <li>{movie.formattedDate} (BR)</li>
-            {movie.genres.map(({ id, name }, index) => (
-              <li
-                className={`${index === 0 ? "lg:list-disc" : "lg:list-none"} `}
-                key={id}
-              >
-                {name}
-              </li>
-            ))}
-            <li>{movie.duration}</li>
-          </ul>
+          <div className="text-brand-neutral-300 flex gap-2">
+            {movie.certification && movie.certification !== "L" && (
+              <>
+                <span>{`${movie.certification} anos`}</span>
+                <span>{" | "}</span>
+              </>
+            )}
+
+            <span>{movie.formattedDate}</span>
+            <span>{" | "}</span>
+
+            <span>{genres.slice(0, 3).join(", ")}</span>
+            <span>{" | "}</span>
+
+            <span>{movie.duration}</span>
+          </div>
         </div>
 
         <div className="flex items-center gap-3">

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { mocked } from "jest-mock";
 import Home, { getStaticProps } from "../../pages";
 import getPopularMovies from "../../pages/api/getPopularMovies";
@@ -7,6 +7,7 @@ jest.mock("../../pages/api/getPopularMovies");
 
 const HomeProps = {
   popularMovies: {
+    total_pages: 1,
     page: 1,
     results: [
       {
@@ -40,7 +41,22 @@ describe("Home page", () => {
   });
 
   describe("when user clicks a movie", () => {
-    it.todo("should render a loading toast");
+    it("should render a loading toast", () => {
+      render(
+        <Home
+          popularMovies={HomeProps.popularMovies}
+          genresList={HomeProps.genresList}
+        />
+      );
+
+      const movieLink = screen.getByRole("link");
+      fireEvent(movieLink, new MouseEvent("click"));
+
+      const loadingToast = screen.queryByText(/Carregando.../i);
+
+      expect(loadingToast).toBeInTheDocument();
+      expect(loadingToast).toBeVisible();
+    });
   });
 
   describe("getStaticProps", () => {
@@ -49,6 +65,8 @@ describe("Home page", () => {
 
       getPopularMoviesMocked.mockResolvedValueOnce({
         popularMoviesData: {
+          total_pages: 1,
+          total_results: 1,
           page: 1,
           results: [
             {
@@ -78,6 +96,7 @@ describe("Home page", () => {
         expect.objectContaining({
           props: {
             popularMovies: {
+              total_pages: 1,
               page: 1,
               results: [
                 {

@@ -19,7 +19,6 @@ export function Pagination({
   const allPages = Array.from({ length: total_pages }, (_, index) => index + 1);
   const twoPagesAfter = allPages.slice(currentPage, currentPage + 2);
   const twoPagesBefore = allPages.slice(currentPage - 3, currentPage - 1);
-  const onePageBefore = allPages.slice(currentPage - 2, currentPage - 1);
 
   const buttonStyles = {
     base: "text-sm sm:text-base font-bold py-2 px-4 duration-150 hover:bg-brand-neutral-300 rounded",

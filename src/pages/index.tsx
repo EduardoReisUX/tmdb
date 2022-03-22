@@ -9,6 +9,12 @@ import { Pagination } from "../components/Pagination";
 import { LoadingToast } from "../components/LoadingToast";
 import { useCallback, useState } from "react";
 
+type SelectedGenresType = Array<{
+  id: number;
+  name: string;
+  isSelected: boolean;
+}>;
+
 interface resultsInterface {
   id: number;
   title: string;
@@ -40,6 +46,32 @@ export default function Home({ popularMovies, genresList }: HomeProps) {
     }, 4500);
   }, [isLoading]);
 
+  const [selectedGenres, setSelectedGenres] = useState<SelectedGenresType>(
+    Array.from(genresList, ({ id, name }) => ({
+      id,
+      name,
+      isSelected: false,
+    }))
+  );
+
+  function toggleSelectedGenre(id: number) {
+    if (selectedGenres.find((genre) => genre.id === id)) {
+      const toggled = selectedGenres.map((genre) => {
+        if (genre.id === id) {
+          return {
+            ...genre,
+            isSelected: !genre.isSelected,
+          };
+        }
+
+        return genre;
+      });
+
+      const newState = [...toggled];
+      setSelectedGenres([...newState]);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -52,9 +84,13 @@ export default function Home({ popularMovies, genresList }: HomeProps) {
       </Head>
 
       <main className="min-h-screen bg-brand-primary-dark">
-        <Hero genres={genresList} />
+        <Hero
+          genres={selectedGenres}
+          toggleSelectedGenre={toggleSelectedGenre}
+        />
         <MoviesList
           movies={popularMovies.results}
+          selectedGenres={selectedGenres}
           handleOnClick={showLoadingToast}
         />
         <Pagination

@@ -1,13 +1,15 @@
 import { GenresTags } from "./GenresTag";
 
 type HeroProps = {
+  toggleSelectedGenre: (id: number) => void;
   genres: Array<{
     id: number;
     name: string;
+    isSelected: boolean;
   }>;
 };
 
-export function Hero({ genres }: HeroProps) {
+export function Hero({ genres, toggleSelectedGenre }: HeroProps) {
   return (
     <>
       <section
@@ -21,7 +23,7 @@ export function Hero({ genres }: HeroProps) {
           Explore já.
         </h1>
 
-        <GenresTags genres={genres} />
+        <GenresTags genres={genres} toggleSelectedGenre={toggleSelectedGenre} />
       </section>
     </>
   );

@@ -28,14 +28,16 @@ e
 [GET /movie/{movie_id}](https://developers.themoviedb.org/3/movies/get-movie-details)
 para, respectivamente, fazer a listagem de filmes populares e obter dados específicos de um filme.
 
+<!--
 ## 📝 Testes
 
 🚧 **_Em construção_**
 
-<!-- - MoviesList component
+- MoviesList component
   - receiving mocked MoviesListProps
     - [x] should render a list of movies
-    - [x] should have a link to its specific movie -->
+    - [x] should have a link to its specific movie
+-->
 
 ## ⚒ Tecnologias
 
@@ -45,12 +47,9 @@ para, respectivamente, fazer a listagem de filmes populares e obter dados espec�
 - [**TailwindCSS**](https://tailwindcss.com/)
 - [**Jest**](https://jestjs.io/pt-BR/)
 - [**React Testing Library**](https://testing-library.com/)
-- [**React-Icons**](https://react-icons.github.io/react-icons/)
-- [**Axios**](https://axios-http.com/)
-- **_Playwright ou Cypress_\***
-- **_React-Query_\***
+- **_Playwright_\***
 
-<small>\*Essas tecnologias serão implementadas futuramente.</small>
+<small>\*Essa tecnologia será implementadaa futuramente.</small>
 
 ## ⚙ Pré-requisitos
 
@@ -71,6 +70,10 @@ $ git clone https://github.com/EduardoReisUX/tmdb.git && cd tmdb
 ```bash
 # Instale as dependências
 $ yarn
+
+# Crie um arquivo ".env.local" que será a cópia de
+# ".env.example" e atribua as variáveis de ambiente
+$ cp .env.example .env.local
 
 # Verifique os testes
 $ yarn test

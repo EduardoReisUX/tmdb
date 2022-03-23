@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { CastsType } from "../pages/api/getMovieById";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 interface Movie {
   formattedDate: string;
@@ -46,7 +48,7 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
         <div>
           <h3 className="text-4xl font-bold">{movie.title}</h3>
 
-          <div className="text-brand-neutral-300 flex gap-2">
+          <div className="text-brand-neutral-300 flex gap-2 flex-wrap">
             {movie.certification && movie.certification !== "L" && (
               <>
                 <span>{`${movie.certification} anos`}</span>
@@ -65,8 +67,19 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="w-16 h-16 flex justify-center items-center rounded-full bg-[rgba(255,255,255,0.1)] border-4 border-[#14FF00] text-[#14FF00] font-bold">
-            {movie.vote_average_formatted}%
+          <div className="w-16 h-16 font-bold bg-[rgba(255,255,255,0.1)] rounded-full">
+            <CircularProgressbar
+              value={movie.vote_average_formatted}
+              maxValue={100}
+              text={`${movie.vote_average_formatted}%`}
+              styles={buildStyles({
+                trailColor: "rgba(255,255,255,0.1)",
+                pathColor: "#14FF00",
+                textColor: "#14FF00",
+                textSize: "1.5rem",
+                pathTransitionDuration: 0.3,
+              })}
+            />
           </div>
           <p>
             Avaliação dos <br />

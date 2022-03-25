@@ -24,11 +24,20 @@ const MoviesListProps = {
   },
 };
 
+const selectedGenresProps = [
+  {
+    id: 1,
+    name: "Ação",
+    isSelected: false,
+  },
+];
+
 describe("MoviesList component", () => {
   describe("receiving mocked MoviesListProps", () => {
     it("should render a list of movies", () => {
       render(
         <MoviesList
+          selectedGenres={selectedGenresProps}
           movies={MoviesListProps.movies}
           handleOnClick={MoviesListProps.handleOnClick}
         />
@@ -52,6 +61,7 @@ describe("MoviesList component", () => {
     it("should have a link to its specific movie", () => {
       render(
         <MoviesList
+          selectedGenres={selectedGenresProps}
           movies={MoviesListProps.movies}
           handleOnClick={MoviesListProps.handleOnClick}
         />
@@ -70,6 +80,7 @@ describe("MoviesList component", () => {
       render(
         <div>
           <MoviesList
+            selectedGenres={selectedGenresProps}
             movies={MoviesListProps.movies}
             handleOnClick={MoviesListProps.handleOnClick}
           />

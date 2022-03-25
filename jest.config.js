@@ -8,13 +8,12 @@ module.exports = {
   testEnvironment: "jsdom",
   moduleNameMapper: {
     "\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$": `<rootDir>/__mocks__/fileMock.js`,
+    "^.+\\.(css|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
   },
-  collectCoverage: true,
   collectCoverageFrom: [
     "src/**/*.tsx",
     "!src/**/*.spec.tsx",
     "!src/**/*_app.tsx",
     "!src/**/*_document.tsx",
-    "!src/pages/api",
   ],
 };

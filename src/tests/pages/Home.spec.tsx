@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { mocked } from "jest-mock";
+import React from "react";
 import Home, { getStaticProps } from "../../pages";
 import getPopularMovies from "../../pages/api/getPopularMovies";
 
@@ -38,6 +39,31 @@ describe("Home page", () => {
       const text = screen.getByText(HomeProps.popularMovies.results[0].title);
       expect(text).toBeInTheDocument();
     });
+  });
+
+  describe("when a genre is clicked", () => {
+    it("should change its class attribute", () => {
+      render(
+        <Home
+          popularMovies={HomeProps.popularMovies}
+          genresList={HomeProps.genresList}
+        />
+      );
+
+      const tag = screen.getByText("test-genre");
+      expect(tag).toBeInTheDocument();
+
+      fireEvent.click(tag);
+
+      expect(tag).toHaveClass("bg-brand-secondary text-brand-neutral-000");
+      expect(tag).not.toHaveClass(
+        "bg-brand-neutral-000 text-brand-neutral-900"
+      );
+    });
+
+    it.todo(
+      "should filter movie list to only show movies with selected genres"
+    );
   });
 
   describe("when user clicks a movie", () => {

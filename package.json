@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch",
+    "test": "jest --passWithNoTests --no-cache",
+    "test:watch": "jest --watch --passWithNoTests --no-cache",
+    "test:coverage": "jest --coverage --watchAll --no-cache",
     "lint": "next lint"
   },
   "dependencies": {

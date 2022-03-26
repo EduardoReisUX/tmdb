@@ -1,10 +1,15 @@
-import { render } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { mocked } from "jest-mock";
 
 import getMovieById from "../../../pages/api/getMovieById";
 import MovieById, { getServerSideProps } from "../../../pages/movie/[id]";
 
 jest.mock("../../../pages/api/getMovieById");
+jest.mock("next/link", () => {
+  return ({ children }: any) => {
+    return children;
+  };
+});
 
 const MovieByIdProps = {
   movieData: {
@@ -49,12 +54,12 @@ const MovieByIdProps = {
     results: [
       {
         id: 1,
-        title: "string",
-        overview: "string",
-        release_date: "string",
-        formattedDate: "string",
-        backdrop_path: "string",
-        poster_path: "string",
+        title: "Homem Aranha",
+        overview: "",
+        release_date: "",
+        formattedDate: "",
+        backdrop_path: "",
+        poster_path: "",
         genre_ids: [1, 2],
       },
     ],
@@ -89,7 +94,29 @@ describe("Movie Page", () => {
   });
 
   describe("when user clicks a movie", () => {
-    it.todo("should render a loading toast");
+    it("should render a loading toast", async () => {
+      render(<MovieById data={MovieByIdProps} />);
+
+      const movieLink = screen.getByText("Homem Aranha");
+      fireEvent.click(movieLink);
+
+      const loadingToast = await screen.findByText(/Carregando.../i);
+      expect(loadingToast).toBeInTheDocument();
+      expect(loadingToast).toBeVisible();
+    });
+
+    it("loading toast should disappear after a while", async () => {
+      render(<MovieById data={MovieByIdProps} />);
+
+      const movieLink = screen.getByText("Homem Aranha");
+      fireEvent.click(movieLink);
+
+      const loadingToast = await screen.findByText(/Carregando.../i);
+
+      waitFor(() => {
+        expect(loadingToast).not.toBeInTheDocument();
+      });
+    });
   });
 
   describe("getServerSideProps", () => {

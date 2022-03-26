@@ -1,10 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { LoadingToast } from "../../components/LoadingToast";
+import { render, screen } from "@testing-library/react";
 import { MoviesList } from "../../components/MoviesList";
-
-let LoadingToastProps = {
-  isLoading: false,
-};
 
 const MoviesListProps = {
   movies: [
@@ -19,9 +14,7 @@ const MoviesListProps = {
       genre_ids: [1],
     },
   ],
-  handleOnClick: () => {
-    LoadingToastProps.isLoading = true;
-  },
+  handleOnClick: jest.fn(),
 };
 
 const selectedGenresProps = [
@@ -74,25 +67,6 @@ describe("MoviesList component", () => {
         "href",
         `/movie/${MoviesListProps.movies[0].id}`
       );
-    });
-
-    it("LoadingToast component should appear when clicked", async () => {
-      render(
-        <div>
-          <MoviesList
-            selectedGenres={selectedGenresProps}
-            movies={MoviesListProps.movies}
-            handleOnClick={MoviesListProps.handleOnClick}
-          />
-          <LoadingToast isLoading={LoadingToastProps.isLoading} />
-        </div>
-      );
-
-      const link = screen.getByRole("link");
-      fireEvent(link, new MouseEvent("click"));
-
-      const loadingComponent = await screen.findByText(/Carregando.../i);
-      expect(loadingComponent).toBeVisible();
     });
   });
 });

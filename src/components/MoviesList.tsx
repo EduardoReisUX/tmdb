@@ -46,19 +46,11 @@ export function MoviesList({
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8 max-w-screen-lg mx-auto px-2 ">
         {filteredMovies.length > 0
           ? filteredMovies.map(
-              ({
-                id,
-                title,
-                formattedDate,
-                backdrop_path,
-                poster_path,
-                genre_ids,
-              }) => (
+              ({ id, title, formattedDate, backdrop_path, poster_path }) => (
                 <Link key={id} href={`movie/${id}`} passHref>
                   <a
                     className="flex flex-col gap-2 duration-100 ease-in-out hover:brightness-75"
                     onClick={() => handleOnClick()}
-                    data-genres_ids={genre_ids}
                   >
                     <Image
                       src={
@@ -83,19 +75,11 @@ export function MoviesList({
               )
             )
           : movies.map(
-              ({
-                id,
-                title,
-                formattedDate,
-                backdrop_path,
-                poster_path,
-                genre_ids,
-              }) => (
+              ({ id, title, formattedDate, backdrop_path, poster_path }) => (
                 <Link key={id} href={`movie/${id}`} passHref>
                   <a
                     className="flex flex-col gap-2 duration-100 ease-in-out hover:brightness-75"
                     onClick={() => handleOnClick()}
-                    data-genres_ids={genre_ids}
                   >
                     <Image
                       src={

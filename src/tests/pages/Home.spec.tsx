@@ -1,10 +1,15 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { mocked } from "jest-mock";
 import React from "react";
 import Home, { getStaticProps } from "../../pages";
 import getPopularMovies from "../../pages/api/getPopularMovies";
 
 jest.mock("../../pages/api/getPopularMovies");
+jest.mock("next/link", () => {
+  return ({ children }: any) => {
+    return children;
+  };
+});
 
 const HomeProps = {
   popularMovies: {
@@ -13,7 +18,7 @@ const HomeProps = {
     results: [
       {
         id: 1,
-        title: "HomemAranha",
+        title: "Homem Aranha",
         overview: "",
         release_date: "",
         formattedDate: "",
@@ -21,67 +26,81 @@ const HomeProps = {
         poster_path: "",
         genre_ids: [1],
       },
+      {
+        id: 2,
+        title: "Batman",
+        overview: "",
+        release_date: "",
+        formattedDate: "",
+        backdrop_path: "",
+        poster_path: "",
+        genre_ids: [2],
+      },
     ],
   },
-  genresList: [{ id: 1, name: "test-genre" }],
+  genresList: [
+    { id: 1, name: "Ação" },
+    { id: 2, name: "Ficção" },
+  ],
 };
 
 describe("Home page", () => {
   describe("Receiving mocked HomeProps", () => {
     it("should render a list of heroes", () => {
-      render(
-        <Home
-          popularMovies={HomeProps.popularMovies}
-          genresList={HomeProps.genresList}
-        />
-      );
+      render(<Home {...HomeProps} />);
 
-      const text = screen.getByText(HomeProps.popularMovies.results[0].title);
+      const text = screen.getByText(/Homem Aranha/i);
       expect(text).toBeInTheDocument();
     });
   });
 
-  describe("when a genre is clicked", () => {
-    it("should change its class attribute", () => {
-      render(
-        <Home
-          popularMovies={HomeProps.popularMovies}
-          genresList={HomeProps.genresList}
-        />
-      );
+  describe("when user clicks a genre", () => {
+    it("should change its color from neutral to secondary", () => {
+      render(<Home {...HomeProps} />);
 
-      const tag = screen.getByText("test-genre");
-      expect(tag).toBeInTheDocument();
+      const genre = screen.getByText("Ação");
+      fireEvent.click(genre);
 
-      fireEvent.click(tag);
-
-      expect(tag).toHaveClass("bg-brand-secondary text-brand-neutral-000");
-      expect(tag).not.toHaveClass(
+      expect(genre).toHaveClass("bg-brand-secondary text-brand-neutral-000");
+      expect(genre).not.toHaveClass(
         "bg-brand-neutral-000 text-brand-neutral-900"
       );
     });
 
-    it.todo(
-      "should filter movie list to only show movies with selected genres"
-    );
+    it("should filter movies to only show movies with selected genres", () => {
+      render(<Home {...HomeProps} />);
+
+      const genre = screen.getByText("Ficção");
+      fireEvent.click(genre);
+
+      const filteredMovies = screen.getAllByText(/Batman/i);
+      expect(filteredMovies).toHaveLength(1);
+    });
   });
 
   describe("when user clicks a movie", () => {
-    it("should render a loading toast", () => {
-      render(
-        <Home
-          popularMovies={HomeProps.popularMovies}
-          genresList={HomeProps.genresList}
-        />
-      );
+    it("should render a loading toast", async () => {
+      render(<Home {...HomeProps} />);
 
-      const movieLink = screen.getByRole("link");
-      fireEvent(movieLink, new MouseEvent("click"));
+      const movieLink = screen.getByText("Homem Aranha");
+      fireEvent.click(movieLink);
 
-      const loadingToast = screen.queryByText(/Carregando.../i);
-
+      const loadingToast = await screen.findByText(/Carregando.../i);
       expect(loadingToast).toBeInTheDocument();
       expect(loadingToast).toBeVisible();
+    });
+
+    it("loading toast should disappear after a while", async () => {
+      render(<Home {...HomeProps} />);
+
+      const movieLink = screen.getByText("Homem Aranha");
+      fireEvent.click(movieLink);
+
+      const loadingToast = await screen.findByText(/Carregando.../i);
+
+      waitFor(() => {
+        expect(loadingToast).not.toBeInTheDocument();
+      });
     });
   });
 

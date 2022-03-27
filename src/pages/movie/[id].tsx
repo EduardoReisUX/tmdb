@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useState, useCallback } from "react";
 
 import { CastsList } from "../../components/CastsList";
+import { Divider } from "../../components/Divider";
 import { LoadingToast } from "../../components/LoadingToast";
 import { MovieResume } from "../../components/MovieResume";
 import { RecommendedMoviesList } from "../../components/RecommendedMoviesList";
@@ -70,9 +71,8 @@ export default function MovieById({ data }: MovieByIdProps) {
 
       <main className="min-h-screen bg-brand-primary-dark">
         <MovieResume movie={movieData} casts={castData} />
-
+        <Divider />
         <CastsList cast={castData.cast} />
-
         <RecommendedMoviesList
           data={recommendedMoviesData}
           showLoadingToast={showLoadingToast}

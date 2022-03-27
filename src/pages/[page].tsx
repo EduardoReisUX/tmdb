@@ -8,6 +8,7 @@ import { MoviesList } from "../components/MoviesList";
 import { Pagination } from "../components/Pagination";
 import { LoadingToast } from "../components/LoadingToast";
 import { useCallback, useState } from "react";
+import { Divider } from "../components/Divider";
 
 type SelectedGenresType = Array<{
   id: number;
@@ -91,6 +92,7 @@ export default function PopularMoviesPage({
           genres={selectedGenres}
           toggleSelectedGenre={toggleSelectedGenre}
         />
+        <Divider />
         <MoviesList
           movies={popularMovies.results}
           selectedGenres={selectedGenres}

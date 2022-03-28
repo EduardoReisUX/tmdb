@@ -4,15 +4,14 @@
 
 <p align="center">
   <a href="#ℹ-descrição">Descrição</a> •
-  <a href="#ℹ-testes">Testes</a> •
   <a href="#-tecnologias">Tecnologias</a> •
   <a href="#-pré-requisitos">Pré-requisitos</a> •
-  <a href="#-como-usar">Como usar</a> <!-- •
-  <a href="#-demonstração">Demonstração</a> -->
+  <a href="#-como-usar">Como usar</a> •
+  <a href="#-demonstração">Demonstração</a>
 </p>
 
 <p align="center">
-  <img src="github/desktop.png" alt="Projeto no desktop" width="100%"></img>
+  <img src="github/movie.png" alt="Projeto no desktop" width="100%"></img>
 </p>
 
 ## ℹ Descrição
@@ -28,17 +27,6 @@ e
 [GET /movie/{movie_id}](https://developers.themoviedb.org/3/movies/get-movie-details)
 para, respectivamente, fazer a listagem de filmes populares e obter dados específicos de um filme.
 
-<!--
-## 📝 Testes
-
-🚧 **_Em construção_**
-
-- MoviesList component
-  - receiving mocked MoviesListProps
-    - [x] should render a list of movies
-    - [x] should have a link to its specific movie
--->
-
 ## ⚒ Tecnologias
 
 - [**React**](https://pt-br.reactjs.org)
@@ -47,9 +35,7 @@ para, respectivamente, fazer a listagem de filmes populares e obter dados espec�
 - [**TailwindCSS**](https://tailwindcss.com/)
 - [**Jest**](https://jestjs.io/pt-BR/)
 - [**React Testing Library**](https://testing-library.com/)
-- **_Playwright_\***
-
-<small>\*Essa tecnologia será implementadaa futuramente.</small>
+- [**Playwright**](https://playwright.dev/)
 
 ## ⚙ Pré-requisitos
 
@@ -75,18 +61,23 @@ $ yarn
 # ".env.example" e atribua as variáveis de ambiente
 $ cp .env.example .env.local
 
-# Verifique os testes
+# Verifique os testes unitários
 $ yarn test
+# ou
+$ yarn test:watch
+
+# Verifique os testes e2e
+$ yarn test:e2e
 
 # Inicie a aplicação na sua máquina
 $ yarn dev
 ```
 
-<!-- ## 👀 Demonstração
+## 👀 Demonstração
 
 <p align="center">
-<img src="github/demo.gif" alt="Demonstração do projeto"></img>
-</p> -->
+  <img src="github/demo.gif" alt="Demonstração do projeto"></img>
+</p>
 
 ---
 

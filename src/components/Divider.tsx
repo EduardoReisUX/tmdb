@@ -1,4 +1,3 @@
-import Image from "next/image";
 import DividerSvg from "./../assets/divider.svg";
 
 export function Divider() {

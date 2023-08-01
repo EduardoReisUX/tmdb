@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 type CastsListProps = {
   cast: Array<{
     id: number;
@@ -22,12 +20,10 @@ export function CastsList({ cast }: CastsListProps) {
               className="snap-start scroll-m-12 flex flex-col gap-4 py-2 px-2 border rounded shadow-md duration-150 hover:shadow-xl"
             >
               <div className="w-[175px] h-[222px]">
-                <Image
+                <img
                   src={`https://image.tmdb.org/t/p/original/${profile_path}`}
                   alt={name}
-                  width={175}
-                  height={222}
-                  className="rounded"
+                  className="rounded w-[175px] h-[222px]"
                 />
               </div>
 

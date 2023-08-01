@@ -1,5 +1,4 @@
 import Logo from "./../assets/logo.svg";
-import Image from "next/image";
 import Link from "next/link";
 
 export function Header() {
@@ -8,7 +7,7 @@ export function Header() {
       <div className="flex-1 max-w-screen-lg mx-auto py-4 px-2 flex items-center justify-center md:justify-start">
         <Link href="/" passHref>
           <a className="flex">
-            <Image src={Logo} alt="Logo" />
+            <img src={Logo} alt="Logo" />
           </a>
         </Link>
       </div>

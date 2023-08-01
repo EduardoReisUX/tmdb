@@ -1,7 +1,6 @@
 import RightArrow from "./../assets/right-arrow.svg";
 import LeftArrow from "./../assets/left-arrow.svg";
 
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 type PaginationProps = {
@@ -40,7 +39,7 @@ export function Pagination({
             className={buttonStyles.base}
             onClick={() => handleOnClick(previousPage)}
           >
-            <Image src={LeftArrow} alt="Página anterior" />
+            <img src={LeftArrow} alt="Página anterior" />
           </button>
           {previousPage == 1 ? (
             <button
@@ -82,7 +81,7 @@ export function Pagination({
             className={buttonStyles.base}
             onClick={() => handleOnClick(nextPage)}
           >
-            <Image src={RightArrow} alt="Próxima página" />
+            <img src={RightArrow} alt="Próxima página" />
           </button>
         </>
       )}

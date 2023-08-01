@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 interface resultsInterface {
   id: number;
@@ -35,14 +34,12 @@ export function RecommendedMoviesList({
                   onClick={() => showLoadingToast()}
                 >
                   <div className="w-[156px] h-[232px]">
-                    <Image
+                    <img
                       src={`https://image.tmdb.org/t/p/original/${
                         poster_path || backdrop_path
                       }`}
                       alt={title}
-                      width={156}
-                      height={232}
-                      className="rounded"
+                      className="rounded h-[156px] w-[232px]"
                     />
                   </div>
 

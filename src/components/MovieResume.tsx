@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { CastsType } from "../pages/api/getMovieById";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -33,14 +32,12 @@ export function MovieResume({ movie, casts }: MovieResumeProps) {
       "
     >
       <div className="mx-auto w-[186px] h-[279px] lg:w-[383px] lg:h-[574px] lg:relative">
-        <Image
+        <img
           src={`https://image.tmdb.org/t/p/original/${
             movie.poster_path || movie.backdrop_path
           }`}
-          width={383}
-          height={574}
           alt={movie.title}
-          className="rounded-lg lg:absolute lg:-top-8"
+          className="rounded-lg w-[383px] h-[574px] lg:absolute lg:-top-8"
         />
       </div>
 

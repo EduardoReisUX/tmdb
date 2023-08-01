@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type MoviesListProps = {
@@ -52,7 +51,7 @@ export function MoviesList({
                     className="flex flex-col gap-2 duration-100 ease-in-out hover:brightness-75"
                     onClick={() => handleOnClick()}
                   >
-                    <Image
+                    <img
                       src={
                         `https://image.tmdb.org/t/p/original/${poster_path}` ||
                         `https://image.tmdb.org/t/p/original/${backdrop_path}`
@@ -60,8 +59,7 @@ export function MoviesList({
                       alt={title}
                       width={176}
                       height={264}
-                      objectFit="cover"
-                      className="rounded"
+                      className="rounded object-cover w-[176px] h-[264px]"
                     />
 
                     <div>
@@ -81,7 +79,7 @@ export function MoviesList({
                     className="flex flex-col gap-2 duration-100 ease-in-out hover:brightness-75"
                     onClick={() => handleOnClick()}
                   >
-                    <Image
+                    <img
                       src={
                         `https://image.tmdb.org/t/p/original/${poster_path}` ||
                         `https://image.tmdb.org/t/p/original/${backdrop_path}`
@@ -89,8 +87,7 @@ export function MoviesList({
                       alt={title}
                       width={176}
                       height={264}
-                      objectFit="cover"
-                      className="rounded"
+                      className="rounded object-cover w-[176px] h-[264px]"
                     />
 
                     <div>
